@@ -7,7 +7,10 @@
     "build": "tsc",
     "dev": "nodemon",
     "start:dev": "ts-node app/server.ts",
-    "----------- DB ---------": ""
+    "----------- DB ---------": "",
+    "migration:create": "drizzle-kit generate:pg",
+    "migration:drop": "drizzle-kit drop",
+    "migrate:latest": "ts-node bin/migrate.ts"
   },
   "dependencies": {
     "@fastify/autoload": "^5.7.1",
@@ -23,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
+    "@types/pg": "^8.10.2",
     "drizzle-kit": "^0.19.2",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",

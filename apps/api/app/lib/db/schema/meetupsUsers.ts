@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm";
 import {
   pgTable,
   uuid,
+  integer,
   timestamp,
   text,
   primaryKey,
@@ -16,7 +17,7 @@ export const meetupsUsers = pgTable(
     userId: uuid("user_id")
       .references(() => users.id)
       .notNull(),
-    meetupId: uuid("meetup_id")
+    meetupId: integer("meetup_id")
       .references(() => meetups.id)
       .notNull(),
     replyStatus: text("reply_status")
