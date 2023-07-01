@@ -8,10 +8,12 @@
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
+    "@types/node": "^20.3.3",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "typescript": "^5.1.6"
   },
   "name": "gatherapp",
   "packageManager": "yarn@1.22.19",
