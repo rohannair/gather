@@ -4,6 +4,8 @@ import { fastify } from "fastify";
 import autoload from "@fastify/autoload";
 import { join } from "node:path";
 
+import { plugin as graphqlPlugin } from "./modules/graphql/plugin";
+
 const envToLogger: Record<string, any> = {
   development: {
     transport: {
@@ -32,3 +34,4 @@ app.register(autoload, {
   dirNameRoutePrefix: false,
   options: { prefix: "/api/v1" },
 });
+app.register(graphqlPlugin);

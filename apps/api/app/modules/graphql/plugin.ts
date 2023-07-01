@@ -5,6 +5,7 @@ import type {
   FastifyInstance,
   FastifyPluginAsync,
 } from "fastify";
+import { schema } from "./schema";
 
 export const plugin: FastifyPluginAsync = async (app: FastifyInstance) => {
   const yoga = createYoga<{
@@ -17,6 +18,7 @@ export const plugin: FastifyPluginAsync = async (app: FastifyInstance) => {
       warn: (...args) => args.forEach((arg) => app.log.warn(arg)),
       error: (...args) => args.forEach((arg) => app.log.error(arg)),
     },
+    schema,
   });
 
   app.addContentTypeParser("multipart/form-data", {}, (_req, _payload, done) =>
