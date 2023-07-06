@@ -1,0 +1,22 @@
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "CommonJS",
+    "strict": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": false,
+    "outDir": "build",
+    "rootDir": "app",
+    "target": "ES2020",
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  },
+  "include": ["app/**/*"],
+  "exclude": ["node_modules", "build", "bin"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

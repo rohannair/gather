@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { sql, eq, InferModel } from "drizzle-orm";
 import {
   pgTable,
   varchar,

@@ -1,4 +1,6 @@
-import { sql } from "drizzle-orm";
+import { sql, InferModel, eq } from "drizzle-orm";
+import { db } from "../client";
+
 import {
   pgTable,
   uuid,
@@ -34,3 +36,40 @@ export const meetups = pgTable(
     meetups_name_idx: uniqueIndex("meetups_name_idx").on(t.name),
   })
 );
+
+export type Meetup = InferModel<typeof meetups>;
+export type NewMeetup = InferModel<typeof meetups, "insert">;
+
+export const getMeetupByOrganization = async (
+  organizationId: string
+): Promise<Meetup[]> => {
+  return await db
+    .select()
+    .from(meetups)
+    .where(eq(meetups.organizationId, organizationId));
+};
+
+export const getMeetupById = async (id: number): Promise<Meetup> => {
+  return await db
+    .select()
+    .from(meetups)
+    .where(eq(meetups.id, id))
+    .then((res) => res[0]);
+};
+
+export const insertMeetup = async (args: NewMeetup): Promise<Meetup> => {
+  const records = await db.insert(meetups).values(args).returning();
+  return records[0];
+};
+
+export const updateMeetup = async (
+  id: number,
+  args: NewMeetup
+): Promise<Meetup> => {
+  const records = await db
+    .update(meetups)
+    .set(args)
+    .where(eq(meetups.id, id))
+    .returning();
+  return records[0];
+};
