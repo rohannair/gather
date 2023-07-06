@@ -1,5 +1,6 @@
-import { Logo } from '@/components/Logo'
 import { Link } from '@remix-run/react'
+
+import { Logo } from '@/components/Logo'
 
 interface ISidebarProps {
   children: React.ReactNode

@@ -1,32 +1,41 @@
-import { sql } from "drizzle-orm";
+import { sql } from 'drizzle-orm'
 import {
   pgTable,
   uuid,
   uniqueIndex,
   timestamp,
   text,
-} from "drizzle-orm/pg-core";
+  jsonb,
+  date,
+} from 'drizzle-orm/pg-core'
 
 export const users = pgTable(
-  "users",
+  'users',
   {
-    id: uuid("id").primaryKey(),
-    email: text("email").notNull(),
-    givenName: text("given_name"),
-    familyName: text("family_name"),
-    initials: text("initials"),
-    profileImg: text("profile_img"),
-    role: text("role")
-      .$type<"superadmin" | "admin" | "user">()
-      .default("user")
+    id: uuid('id').primaryKey(),
+    email: text('email').notNull(),
+    // Profile
+    givenName: text('given_name'),
+    familyName: text('family_name'),
+    initials: text('initials'),
+    dob: date('dob'),
+    language: text('language').$type<'en' | 'fr' | 'es'>(),
+    // Account
+    profileImg: text('profile_img'),
+    username: text('username'),
+    bio: text('bio'),
+    links: jsonb('links').default(sql`'[]'::jsonb`),
+    role: text('role')
+      .$type<'superadmin' | 'admin' | 'user'>()
+      .default('user')
       .notNull(),
     // Meta
-    createdAt: timestamp("created_at")
+    createdAt: timestamp('created_at')
       .default(sql`now()`)
       .notNull(),
-    updatedAt: timestamp("updated_at"),
+    updatedAt: timestamp('updated_at'),
   },
-  (users) => ({
-    users_email_idx: uniqueIndex("users_email_idx").on(users.email),
-  })
-);
+  users => ({
+    users_email_idx: uniqueIndex('users_email_idx').on(users.email),
+  }),
+)

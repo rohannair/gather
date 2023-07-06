@@ -1,11 +1,14 @@
+const { getDependenciesToBundle } = require('@remix-run/dev')
+
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
-  ignoredRouteFiles: ["**/.*"],
+  ignoredRouteFiles: ['**/.*'],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
-  serverModuleFormat: "cjs",
+  serverDependenciesToBundle: [/.*/],
+  serverModuleFormat: 'cjs',
   tailwind: true,
   postcss: true,
   future: {
@@ -16,4 +19,4 @@ module.exports = {
     v2_normalizeFormMethod: true,
     v2_routeConvention: true,
   },
-};
+}

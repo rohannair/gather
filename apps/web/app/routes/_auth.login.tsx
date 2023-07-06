@@ -1,8 +1,18 @@
+import type { ActionFunction,V2_MetaFunction } from '@remix-run/node';
+import { redirect } from '@remix-run/node'
+import { Form, Link } from '@remix-run/react'
+
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ActionFunction, V2_MetaFunction, redirect } from '@remix-run/node'
-import { Form, Link } from '@remix-run/react'
 
 export const meta: V2_MetaFunction = () => [{ title: 'Log In' }]
 
@@ -12,35 +22,60 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function LogIn() {
   return (
-    <div className="w-1/3 mx-auto min-h-screen flex flex-col gap-6 rounded-lg p-6 mt-5">
-      <h1 className="font-bold text-3xl text-center">Log In</h1>
-      <Form method="post" action="/signup" className="flex flex-col gap-6">
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            className="text-zinc-800"
-          />
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            className="text-zinc-800"
-          />
-        </div>
-        <div className="flex items-end justify-center">
-          <Button type="submit">Log In</Button>
-        </div>
-        <div className="text-sm flex flex-col items-center text-center gap-4">
-          <Link to="/signup">Need an account? Sign Up</Link>
-          <Link to="/forgot-password">Forgot password?</Link>
-        </div>
-      </Form>
+    <div className="w-2/3 max-w-screen-sm mx-auto">
+      <Card>
+        <Form method="post" action="/login">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Log In</CardTitle>
+            <CardDescription>
+              <Link to="/signup">Don't have an account? Sign Up</Link>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="grid grid-cols-3 gap-6">
+              <Button variant="outline">
+                {/* <Icons.gitHub className="mr-2 h-4 w-4" /> */}
+                Google
+              </Button>
+              <Button variant="outline">
+                {/* <Icons.google className="mr-2 h-4 w-4" /> */}
+                Apple
+              </Button>
+              <Button variant="outline">
+                {/* <Icons.google className="mr-2 h-4 w-4" /> */}
+                Outlook
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="me@example.com" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" />
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col gap-4">
+            <Button className="w-full">Log In</Button>
+            <Link
+              to="/forgot-password"
+              className="text-xs hover:text-yellow-800 hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </CardFooter>
+        </Form>
+      </Card>
     </div>
   )
 }

@@ -8,16 +8,19 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
+
 import { Toaster } from '@/components/ui/toaster'
 
-import tailwind from './tailwind.css'
 import globals from './globals.css'
+import tailwind from './tailwind.css'
+import mdEditorStyles from '@uiw/react-md-editor/dist/mdeditor.min.css'
 import calsans from 'cal-sans/index.css'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: calsans },
   { rel: 'stylesheet', href: tailwind },
   { rel: 'stylesheet', href: globals },
+  { rel: 'stylesheet', href: mdEditorStyles },
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ]
 
@@ -27,6 +30,7 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta httpEquiv="Content-Type" content="text/html;charset=utf-8" />
         <Meta />
         <Links />
       </head>

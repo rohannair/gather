@@ -1,14 +1,15 @@
-import { Sidebar, NavLink } from '@/components/Sidebar'
-import { UserProfileLink } from '@/components/UserProfileLink'
+import type { V2_MetaFunction } from '@remix-run/node'
 import { Outlet } from '@remix-run/react'
+
+import { NavLink,Sidebar } from '@/components/Sidebar'
+import { UserProfileLink } from '@/components/UserProfileLink'
 import { links } from '@/lib/navlinks'
-import { V2_MetaFunction } from '@remix-run/node'
 
 export const meta: V2_MetaFunction = () => [{ title: 'Dashboard' }]
 
 export default function Dashboard() {
   return (
-    <div className="w-full min-h-screen grid grid-cols-[350px_1fr]">
+    <div className="m-w-[1170px] min-h-screen grid grid-cols-[350px_1fr]">
       <Sidebar>
         <div className="pt-6 pb-4 px-6 flex flex-col gap-6">
           {links.map(({ children, ...link }) => (
@@ -26,9 +27,9 @@ export default function Dashboard() {
           />
         </div>
       </Sidebar>
-      <div className="p-4 text-zinc-800">
+      <main className="p-4 text-zinc-800">
         <Outlet />
-      </div>
+      </main>
     </div>
   )
 }

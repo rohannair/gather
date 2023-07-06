@@ -1,19 +1,19 @@
-import { INavLink } from '@/components/Sidebar'
 import {
-  Users2,
   Calendar,
-  Receipt,
-  MessageCircle,
-  Settings,
   Image,
+  MessageCircle,
+  Receipt,
+  Settings,
 } from 'lucide-react'
 
+import type { INavLink } from '@/components/Sidebar'
+
 export const links: INavLink[] = [
-  {
-    children: 'Organizations',
-    to: '/organizations',
-    Icon: Users2,
-  },
+  // {
+  //   children: 'Organizations',
+  //   to: '/organizations',
+  //   Icon: Users2,
+  // },
   {
     children: 'Events',
     to: '/events',

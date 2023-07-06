@@ -1,8 +1,10 @@
+import type { ActionFunction,V2_MetaFunction } from '@remix-run/node';
+import { redirect } from '@remix-run/node'
+import { Form } from '@remix-run/react'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ActionFunction, V2_MetaFunction, redirect } from '@remix-run/node'
-import { Form, Link } from '@remix-run/react'
 
 export const meta: V2_MetaFunction = () => [{ title: 'Forgot Password' }]
 

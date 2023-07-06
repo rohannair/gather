@@ -1,4 +1,5 @@
 import { Link } from '@remix-run/react'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 interface IUserProfileLinkProps {
