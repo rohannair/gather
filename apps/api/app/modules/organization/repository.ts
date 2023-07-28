@@ -1,21 +1,21 @@
 import { db } from '@/lib/db'
 import { Organization, OrganizationCreate, OrganizationUpdate } from './types'
 
-export async function getOrganizationById(id: number) {
-  return await db
+export function getOrganizationById(id: number) {
+  return db
     .selectFrom('organizations')
     .where('id', '=', id)
     .selectAll()
     .executeTakeFirst()
 }
 
-export async function findOrganization(params: Partial<Organization>) {
+export function findOrganization(params: Partial<Organization>) {
   if (params.id) {
-    return await getOrganizationById(params.id)
+    return getOrganizationById(params.id)
   }
 
   if (params.name) {
-    return await db
+    return db
       .selectFrom('organizations')
       .where('name', '=', params.name)
       .selectAll()
@@ -25,16 +25,16 @@ export async function findOrganization(params: Partial<Organization>) {
   return null
 }
 
-export async function createOrganization(org: OrganizationCreate) {
-  return await db
+export function createOrganization(org: OrganizationCreate) {
+  return db
     .insertInto('organizations')
     .values(org)
     .returningAll()
     .executeTakeFirstOrThrow()
 }
 
-export async function updateOrganization(id: number, org: OrganizationUpdate) {
-  return await db
+export function updateOrganization(id: number, org: OrganizationUpdate) {
+  return db
     .updateTable('organizations')
     .set(org)
     .where('id', '=', id)
