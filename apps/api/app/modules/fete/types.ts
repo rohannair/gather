@@ -19,5 +19,5 @@ export interface FeteTable {
 }
 
 export type Fete = Selectable<FeteTable>
-export type FeteInsert = Insertable<FeteTable>
+export type FeteCreate = Insertable<FeteTable>
 export type FeteUpdate = Updateable<FeteTable>

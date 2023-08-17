@@ -4,16 +4,18 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
     "@types/node": "^20.3.3",
+    "only-allow": "^1.1.1",
     "turbo": "latest",
     "typescript": "^5.1.6"
   },
   "name": "gatherapp",
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "pnpm@7.28.0",
   "workspaces": [
     "apps/*",
     "packages/*"
