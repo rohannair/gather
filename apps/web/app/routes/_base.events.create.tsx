@@ -1,18 +1,19 @@
-import { useState } from 'react'
+import { type ReactNode } from 'react'
 import { conform, useForm } from '@conform-to/react'
 import { parse } from '@conform-to/zod'
-import { Switch } from '@radix-ui/react-switch'
 import { type ActionFunction, json } from '@remix-run/node'
 import { Form, useActionData } from '@remix-run/react'
 import { z } from 'zod'
 
 import { AddressForm, schema as addressSchema } from '@/components/AddressForm'
 import { Editor } from '@/components/Editor'
+import { InputWithLabel } from '@/components/InputWithLabel'
 import { PageTitle } from '@/components/PageTitle'
 import { Alert } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
@@ -40,9 +41,16 @@ const schema = z.object({
   address: addressSchema,
 })
 
+const Section = ({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) => <div className={cn('flex flex-col space-y-2', className)}>{children}</div>
+
 const EventCreate = () => {
   const actionData = useActionData<typeof action>()
-  const [isVirtual, setIsVirtual] = useState<boolean>(false)
 
   const [form, { name, description, location, startDate, endDate, address }] =
     useForm({
@@ -58,66 +66,36 @@ const EventCreate = () => {
     <div className="w-full min-h-screen flex flex-col rounded-lg p-6">
       <PageTitle>Create Event</PageTitle>
       <Form method="post" {...form.props}>
-        <div className="flex flex-col space-y-4">
-          <div className="flex flex-col space-y-2">
-            <Label htmlFor={name.id}>Event Name</Label>
-            <Input {...conform.input(name)} />
-            {name.errors ? (
-              <Alert variant="destructive">{name.errors[0]}</Alert>
-            ) : null}
-          </div>
+        <Section className="space-y-4">
+          <InputWithLabel label="Event Name" field={name} />
           <div className="flex flex-row space-x-2">
-            <div className="flex flex-col space-y-2 w-1/2">
+            <Section className="w-1/2">
               <Label htmlFor={startDate.id}>Start Date &amp; Time</Label>
               <Input type="datetime-local" {...conform.input(startDate)} />
-            </div>
-            <div className="flex flex-col space-y-2 w-1/2">
+            </Section>
+            <Section className="w-1/2">
               <Label htmlFor={endDate.id}>End Date &amp; Time</Label>
               <Input type="datetime-local" {...conform.input(endDate)} />
-            </div>
+            </Section>
           </div>
-          <div className="flex flex-col space-y-2">
+
+          <Section>
             <Label htmlFor={location.id}>Location</Label>
+            <AddressForm form={form} address={address} />
+          </Section>
 
-            <Label>
-              <Switch
-                id="switch"
-                checked={isVirtual}
-                onCheckedChange={setIsVirtual}
-              />
-              Virtual Event?
-            </Label>
-
-            {isVirtual ? (
-              <>
-                <Label htmlFor="location">Address</Label>
-                <Input id="location" {...conform.input(location)} />
-              </>
-            ) : (
-              <AddressForm
-                form={form}
-                address1={address1}
-                address2={address2}
-                city={city}
-                state={state}
-                postCode={postCode}
-                country={country}
-              />
-            )}
-          </div>
-          <div className="flex flex-col space-y-2">
+          <Section>
             <Label htmlFor={description.id}>Description</Label>
-
             <Editor {...conform.input(description)} />
             {description.errors && description.errors.length > 0 ? (
               <Alert variant="destructive">{description.errors[0]}</Alert>
             ) : null}
-          </div>
+          </Section>
 
           <div className="text-right">
-            <Button type="submit">Create</Button>
+            <Button type="submit">Create Event</Button>
           </div>
-        </div>
+        </Section>
       </Form>
     </div>
   )
